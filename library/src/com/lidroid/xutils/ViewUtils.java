@@ -170,6 +170,16 @@ public class ViewUtils {
 			return;
 		}
 		
+		StringInject stringInject = field.getAnnotation(StringInject.class);
+		if (stringInject != null) {
+			Object res = ResLoader.loadRes(ResType.String,finder.getContext(), stringInject.value());
+			if (res != null) {
+				field.setAccessible(true);
+				field.set(handler, res);
+			}
+			return;
+		}
+		
 		PreferenceInject preferenceInject = field.getAnnotation(PreferenceInject.class);
 		if (preferenceInject != null) {
 			Preference preference = finder.findPreference(preferenceInject.value());
