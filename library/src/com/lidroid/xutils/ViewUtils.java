@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
+import android.util.Log;
 import android.view.View;
 
 import com.lidroid.xutils.util.LogUtils;
@@ -34,6 +35,7 @@ import com.lidroid.xutils.view.ViewFinder;
 import com.lidroid.xutils.view.ViewInjectInfo;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.PreferenceInject;
+import com.lidroid.xutils.view.annotation.Res;
 import com.lidroid.xutils.view.annotation.ResInject;
 import com.lidroid.xutils.view.annotation.StringInject;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -163,6 +165,12 @@ public class ViewUtils {
 			return;
 		}
 
+		Res resDefault = field.getAnnotation(Res.class);
+		if (resDefault != null) {
+			injectDefault(handler, finder, field, resDefault);
+			return;
+		}
+		
 		ResInject resInject = field.getAnnotation(ResInject.class);
 		if (resInject != null) {
 			Object res = ResLoader.loadRes(resInject.type(),finder.getContext(), resInject.id());
@@ -192,6 +200,15 @@ public class ViewUtils {
 			}
 			return;
 		}
+	}
+
+	private static void injectDefault(Object handler, ViewFinder finder,
+			Field field, Res resCommon) throws IllegalAccessException {
+		String typeName = field.getType().getName();
+		Log.d("aiitec", field.getName()+"="+typeName);
+		Object res = ResLoader.loadRes(field, finder.getContext(), resCommon.value());
+		field.setAccessible(true);
+		field.set(handler, res);
 	}
 
 }
