@@ -68,7 +68,7 @@ public class ResLoader {
      * @return
      */
     public static Object loadRes(Field field, Context context, int id) {
-    	String typeName = field.getType().getName();
+    	String typeName = field.getType().getCanonicalName();
         if (context == null || id < 1){
         	return null;
         }
@@ -76,11 +76,11 @@ public class ResLoader {
         	return context.getResources().getBoolean(id);
 		}else if(typeName.equals("float")){
 			return context.getResources().getDimension(id);
-		}else if(typeName.equals("[Ljava.lang.String")){
+		}else if(typeName.equals("java.lang.String[]")){
 			return context.getResources().getStringArray(id);
-		}else if(typeName.equals("[Lint")){
+		}else if(typeName.equals("int[]")){
 			return context.getResources().getIntArray(id);
-		}else if(typeName.equals("[Ljava.lang.CharSequence")){
+		}else if(typeName.equals("java.lang.CharSequence[]")){
 			return context.getResources().getTextArray(id);
 		}else if(typeName.startsWith("android.")){
 			if(field.getType().isAssignableFrom(ColorStateList.class)){

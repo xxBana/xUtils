@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TestTest</string>
+    <string name="test1">content</string>
+    <string-array name="test_string_array">
+        <item >test1</item>
+        <item >test2</item>
+    </string-array>
+    <integer-array name="test_integer_array">
+        <item >1</item>
+        <item >2</item>
+    </integer-array>
+    <dimen name="height">25dp</dimen>
+
+</resources>
