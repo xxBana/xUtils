@@ -14,6 +14,7 @@ public class TestAcivity extends ActivityInstrumentationTestCase2<ViewUtilsTestA
     private Button mView;
     private String resourceString;
 
+
     // 一个无参构造函数（必须）
     public TestAcivity() {
          super(ViewUtilsTestActivity.class);//"com.lidroid.xutils.ViewUtilsTestActivity",
