@@ -2,6 +2,12 @@
 * xUtils 包含了很多实用的android工具。
 * xUtils 支持大文件上传，更全面的http请求协议支持(10种谓词)，拥有更加灵活的ORM，更多的事件注解支持且不受混淆影响...
 * xUitls 最低兼容android 2.2 (api level 8)
+* 
+## 个人主要更新
+* 增加一个Res注入入口，仅单个参数，支持大部分界面元素资源的注入，代码更省更简洁
+* 新增测试项目（eclipse开发，原谅我还没有学会AS）
+* afinal停止了更新，xUtils的作者貌似最近也没有更新，暂时先这样子，希望原作者能够联系上并处理pullRequest
+* 
 
 ## 目前xUtils主要有四大模块：
 
@@ -148,6 +154,44 @@ public void onActivityCreated(Bundle savedInstanceState) {
 // inject(Object handler, Activity activity)
 // inject(Object handler, PreferenceGroup preferenceGroup)
 // inject(Object handler, PreferenceActivity preferenceActivity)
+```
+
+## 简化的注入方式使用Res注解，例子如下：
+```java
+public class ViewUtilsTestActivity extends Activity {
+	
+	@ViewInject(R.id.imageView1)
+	private ImageView imageView;
+
+	@ViewInject(R.id.btnShow)
+	private Button btnStart;
+	@StringInject(R.string.test1)
+	public String testString;
+	
+	@Res(R.array.test_string_array)
+	public String[] testStringArray;
+	
+	@Res(R.array.test_integer_array)
+	public int[] testIntArray;
+	
+	@Res(R.drawable.ic_launcher)
+	public Drawable testDrwable;
+	
+	@ResInject(id=R.drawable.ic_launcher,type=ResType.Drawable)
+	public Drawable testDrwable2;
+	
+	@Res(R.xml.perference)
+	public XmlResourceParser testXml;
+	@Res(R.drawable.test_gif)
+	public Movie testMovie;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.view_utils_test_activity);
+		ViewUtils.inject(this); //注入view和事件
+		this.btnStart.setText(this.testString);
+	}
 ```
 
 ----
